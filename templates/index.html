@@ -26,7 +26,7 @@
         <!-- Título -->
         <div class="d-flex justify-content-between align-items-center mb-5">
             <div>
-                <h1 class="fw-bold text-danger">📺 Videos, Noticias y Podcasts</h1>
+                <h1 class="fw-bold text-danger"> Videos, Noticias y Podcasts</h1>
                 <p class="text-muted">Busca un tema y mantente actualizado</p>
             </div>
         </div>
@@ -35,11 +35,10 @@
         <div class="card shadow-sm p-4 mb-4">
             <form method="get">
                 <div class="input-group">
-                    <input type="text" name="tema" class="form-control form-control-lg" 
-                           placeholder="Buscar videos, noticias y podcasts..." 
-                           value="{{ tema if tema else '' }}" required>
+                    <input type="text" name="tema" class="form-control form-control-lg" placeholder="Buscar "
+                        value="{{ tema if tema else '' }}" required>
                     <button class="btn btn-danger btn-lg" type="submit">
-                        🔍 Buscar
+                        Buscar
                     </button>
                 </div>
             </form>
@@ -58,23 +57,23 @@
 
         <!-- Resultados de YouTube -->
         {% if videos %}
-        <h3 class="mb-3 mt-4">📹 Videos de YouTube</h3>
+        <h3 class="mb-3 mt-4">Videos de YouTube</h3>
         <div class="row mb-5">
             {% for video in videos %}
             <div class="col-md-6 col-lg-4 mb-4">
                 <div class="card h-100 shadow-sm">
                     <!-- Video embebido -->
-                    <iframe width="100%" height="215" src="{{ video.url }}" 
-                            frameborder="0" allowfullscreen class="mt-2"></iframe>
+                    <iframe width="100%" height="215" src="{{ video.url }}" frameborder="0" allowfullscreen
+                        class="mt-2"></iframe>
 
                     <div class="card-body">
                         <h5 class="card-title">{{ video.title }}</h5>
-                        <p class="text-muted">📺 Canal: {{ video.channel }}</p>
+                        <p class="text-muted">Canal: {{ video.channel }}</p>
                     </div>
 
                     <div class="card-footer bg-white border-0">
-                        <a href="https://www.youtube.com/watch?v={{ video.video_id }}" 
-                           target="_blank" class="btn btn-danger w-100">
+                        <a href="https://www.youtube.com/watch?v={{ video.video_id }}" target="_blank"
+                            class="btn btn-danger w-100">
                             Ver en YouTube
                         </a>
                     </div>
@@ -86,7 +85,7 @@
 
         <!-- Resultados de Podcasts -->
         {% if podcasts %}
-        <h3 class="mb-3 mt-4">🎙️ Podcasts en Spotify</h3>
+        <h3 class="mb-3 mt-4"> Podcasts en Spotify</h3>
         <div class="row mb-5">
             {% for podcast in podcasts %}
             <div class="col-md-6 col-lg-4 mb-4">
@@ -96,7 +95,7 @@
                     <img src="{{ podcast.imagen }}" class="podcast-image p-3" alt="{{ podcast.nombre }}">
                     {% else %}
                     <div class="podcast-image bg-secondary d-flex align-items-center justify-content-center">
-                        <span class="text-white fs-1">🎙️</span>
+                        <span class="text-white fs-1"></span>
                     </div>
                     {% endif %}
 
@@ -104,9 +103,9 @@
                         <h5 class="card-title">{{ podcast.nombre }}</h5>
                         <p class="text-muted">
                             <small>
-                                👤 {{ podcast.publisher }}
+                                {{ podcast.publisher }}
                                 {% if podcast.total_episodios > 0 %}
-                                    • 📊 {{ podcast.total_episodios }} episodios
+                                • {{ podcast.total_episodios }} episodios
                                 {% endif %}
                             </small>
                         </p>
@@ -115,9 +114,9 @@
 
                     <div class="card-footer bg-white border-0">
                         {% if podcast.url and podcast.url != "#" %}
-                        <a href="{{ podcast.url }}" target="_blank" rel="noopener noreferrer" 
-                           class="btn btn-success w-100">
-                            🎧 Escuchar en Spotify
+                        <a href="{{ podcast.url }}" target="_blank" rel="noopener noreferrer"
+                            class="btn btn-success w-100">
+                            Escuchar en Spotify
                         </a>
                         {% else %}
                         <button class="btn btn-secondary w-100" disabled>
@@ -133,7 +132,7 @@
 
         <!-- Resultados de noticias -->
         {% if noticias %}
-        <h3 class="mb-3 mt-4">📰 Noticias Recientes</h3>
+        <h3 class="mb-3 mt-4"> Noticias Recientes</h3>
         <div class="row mb-5">
             {% for noticia in noticias %}
             <div class="col-md-6 col-lg-4 mb-4">
@@ -142,9 +141,9 @@
                         <h5 class="card-title">{{ noticia.titulo }}</h5>
                         <p class="text-muted">
                             <small>
-                                📰 {{ noticia.fuente }} 
+                                {{ noticia.fuente }}
                                 {% if noticia.fecha and noticia.fecha != "Fecha desconocida" %}
-                                    • 📅 {{ noticia.fecha[:10] }}
+                                • {{ noticia.fecha[:10] }}
                                 {% endif %}
                             </small>
                         </p>
@@ -152,9 +151,9 @@
                     </div>
                     <div class="card-footer bg-white border-0">
                         {% if noticia.url and noticia.url != "#" %}
-                        <a href="{{ noticia.url }}" target="_blank" rel="noopener noreferrer" 
-                           class="btn btn-danger w-100">
-                            Leer Noticia Completa 🔗
+                        <a href="{{ noticia.url }}" target="_blank" rel="noopener noreferrer"
+                            class="btn btn-danger w-100">
+                            Leer Noticia Completa
                         </a>
                         {% else %}
                         <button class="btn btn-secondary w-100" disabled>
