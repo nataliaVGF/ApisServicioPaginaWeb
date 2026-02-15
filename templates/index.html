@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Videos, Noticias y Podcasts</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .podcast-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body class="bg-light">
+
+    <div class="container py-5">
+
+        <!-- Título -->
+        <div class="d-flex justify-content-between align-items-center mb-5">
+            <div>
+                <h1 class="fw-bold text-danger">📺 Videos, Noticias y Podcasts</h1>
+                <p class="text-muted">Busca un tema y mantente actualizado</p>
+            </div>
+        </div>
+
+        <!-- Formulario de búsqueda -->
+        <div class="card shadow-sm p-4 mb-4">
+            <form method="get">
+                <div class="input-group">
+                    <input type="text" name="tema" class="form-control form-control-lg" 
+                           placeholder="Buscar videos, noticias y podcasts..." 
+                           value="{{ tema if tema else '' }}" required>
+                    <button class="btn btn-danger btn-lg" type="submit">
+                        🔍 Buscar
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Mensaje de error o sin resultados -->
+        {% if error %}
+        <div class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
+        {% elif tema and not videos and not noticias and not podcasts %}
+        <div class="alert alert-warning" role="alert">
+            No se encontraron resultados para "{{ tema }}".
+        </div>
+        {% endif %}
+
+        <!-- Resultados de YouTube -->
+        {% if videos %}
+        <h3 class="mb-3 mt-4">📹 Videos de YouTube</h3>
+        <div class="row mb-5">
+            {% for video in videos %}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <!-- Video embebido -->
+                    <iframe width="100%" height="215" src="{{ video.url }}" 
+                            frameborder="0" allowfullscreen class="mt-2"></iframe>
+
+                    <div class="card-body">
+                        <h5 class="card-title">{{ video.title }}</h5>
+                        <p class="text-muted">📺 Canal: {{ video.channel }}</p>
+                    </div>
+
+                    <div class="card-footer bg-white border-0">
+                        <a href="https://www.youtube.com/watch?v={{ video.video_id }}" 
+                           target="_blank" class="btn btn-danger w-100">
+                            Ver en YouTube
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- Resultados de Podcasts -->
+        {% if podcasts %}
+        <h3 class="mb-3 mt-4">🎙️ Podcasts en Spotify</h3>
+        <div class="row mb-5">
+            {% for podcast in podcasts %}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <!-- Imagen del podcast -->
+                    {% if podcast.imagen %}
+                    <img src="{{ podcast.imagen }}" class="podcast-image p-3" alt="{{ podcast.nombre }}">
+                    {% else %}
+                    <div class="podcast-image bg-secondary d-flex align-items-center justify-content-center">
+                        <span class="text-white fs-1">🎙️</span>
+                    </div>
+                    {% endif %}
+
+                    <div class="card-body">
+                        <h5 class="card-title">{{ podcast.nombre }}</h5>
+                        <p class="text-muted">
+                            <small>
+                                👤 {{ podcast.publisher }}
+                                {% if podcast.total_episodios > 0 %}
+                                    • 📊 {{ podcast.total_episodios }} episodios
+                                {% endif %}
+                            </small>
+                        </p>
+                        <p class="card-text">{{ podcast.descripcion }}</p>
+                    </div>
+
+                    <div class="card-footer bg-white border-0">
+                        {% if podcast.url and podcast.url != "#" %}
+                        <a href="{{ podcast.url }}" target="_blank" rel="noopener noreferrer" 
+                           class="btn btn-success w-100">
+                            🎧 Escuchar en Spotify
+                        </a>
+                        {% else %}
+                        <button class="btn btn-secondary w-100" disabled>
+                            URL no disponible
+                        </button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- Resultados de noticias -->
+        {% if noticias %}
+        <h3 class="mb-3 mt-4">📰 Noticias Recientes</h3>
+        <div class="row mb-5">
+            {% for noticia in noticias %}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ noticia.titulo }}</h5>
+                        <p class="text-muted">
+                            <small>
+                                📰 {{ noticia.fuente }} 
+                                {% if noticia.fecha and noticia.fecha != "Fecha desconocida" %}
+                                    • 📅 {{ noticia.fecha[:10] }}
+                                {% endif %}
+                            </small>
+                        </p>
+                        <p class="card-text">{{ noticia.descripcion }}</p>
+                    </div>
+                    <div class="card-footer bg-white border-0">
+                        {% if noticia.url and noticia.url != "#" %}
+                        <a href="{{ noticia.url }}" target="_blank" rel="noopener noreferrer" 
+                           class="btn btn-danger w-100">
+                            Leer Noticia Completa 🔗
+                        </a>
+                        {% else %}
+                        <button class="btn btn-secondary w-100" disabled>
+                            URL no disponible
+                        </button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
