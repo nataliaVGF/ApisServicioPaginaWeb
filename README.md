@@ -13,9 +13,9 @@ Consultar noticias recientes sobre un tema de interés, utilizando la API de New
 
 Todo se presenta en una interfaz web intuitiva y visual, con diseño moderno usando Bootstrap, lo que permite acceder a la información de forma rápida y clara.
 ## Pantallas
-####Pantalla de Inicio
+##Pantalla de Inicio
 <img width="1774" height="779" alt="image" src="https://github.com/user-attachments/assets/4a6aad52-a4c7-4982-8958-3c2c1535cb6f" />
-####Pantalla usando API Youtube 
+##Pantalla usando API Youtube 
 <img width="1408" height="811" alt="image" src="https://github.com/user-attachments/assets/32743ad0-d4c6-47b7-a6f7-bec62f5f7e0e" />
-####Pantalla usando API Noticias 
+##Pantalla usando API Noticias 
 <img width="1360" height="732" alt="image" src="https://github.com/user-attachments/assets/07703778-5631-4351-bfb6-39a1eebb4cab" />
